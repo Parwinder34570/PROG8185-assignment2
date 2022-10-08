@@ -1,0 +1,55 @@
+/*
+main.css
+1C3879
+607EAA
+EAE3D2
+F9F5EB
+*/
+
+.navbar-custom {
+    background-color: #1C3879;
+}
+ 
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: #EAE3D2;
+}
+
+.navbar-custom a {
+    color: EAE3D2;
+}
+
+.card-properties {
+    background-color: #F9F5EB;
+}
+
+.card-properties a {
+    color: #1C3879;
+}
+
+.total-balance-table-row {
+    color: #1C3879;
+    font-weight: bolder;
+}
+
+.login_div{
+    border: 1px solid grey;
+    padding: 20px;
+    box-shadow: 2px 10px 10px 10px #cdcdcd;
+    background-color: #EAE3D2;
+}
+body{
+    background-color: #F9F5EB;
+}
+.payee-detail-form{
+    padding-top: 40px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+.submit{
+    margin-top: 30px;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: #1C3879;
+    border: 0;
+}
