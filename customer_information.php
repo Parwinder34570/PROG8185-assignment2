@@ -17,9 +17,18 @@
 
 <body>
   <?php
+  require 'connection.php';
   session_start();
-  if (isset($_SESSION['my_products'])) {
-    $product_ar_obj = $_SESSION['my_products'];
+  $_SESSION['username'] = 'Parwinder123';
+  if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+    mysqli_set_charset($conn,"utf8");
+    $selectQuery="SELECT  * FROM `user` WHERE username = '$username'";
+    $user_data = mysqli_query($conn,$selectQuery);
+    $row=mysqli_fetch_assoc($user_data);
+    $fullName = $row['full_name'];
+    $address = ($row['address_line1']." ".$row['address_line2']);
+   
   ?>
     <!--Header-->
     <nav class="navbar navbar-expand-sm navbar-custom navbar-dark">
@@ -60,7 +69,7 @@
             <tbody>
               <tr>
                 <td colspan="2">
-                  <img src="images/parwinder_profile_pic.jpg" style="text-align: center;" class="mx-auto d-block img-thumbnail" width="250" alt="Profile Picture">
+                  <img src="images/dummy-profile-pic.jpg" style="text-align: center;" class="mx-auto d-block img-thumbnail" width="250" alt="Profile Picture">
                 </td>
               </tr>
               <tr class="total-balance-table-row">
@@ -102,11 +111,11 @@
               </tr>
               <tr>
                 <td>Name: </td>
-                <td>Prabhjot Kaur</td>
+                <td><?php echo $fullName ?></td>
               </tr>
               <tr>
-                <td>Address Line1: </td>
-                <td>84 Weber Street South</td>
+                <td>Address: </td>
+                <td><?php echo $address ?></td>
               </tr>
               <tr>
                 <td>City: </td>
