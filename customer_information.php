@@ -22,41 +22,30 @@
   $_SESSION['username'] = 'Parwinder123';
   if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
-    mysqli_set_charset($conn,"utf8");
-    $selectQuery="SELECT  * FROM `user` WHERE username = '$username'";
-    $user_data = mysqli_query($conn,$selectQuery);
-    $row=mysqli_fetch_assoc($user_data);
+    mysqli_set_charset($conn, "utf8");
+    $selectQuery = "SELECT  * FROM `user` WHERE username = '$username'";
+    $user_data = mysqli_query($conn, $selectQuery);
+    $row = mysqli_fetch_assoc($user_data);
+
     $fullName = $row['full_name'];
-    $address = ($row['address_line1']." ".$row['address_line2']);
-   
+    $email = $row['email'];
+    $address = trim($row['address_line1'] . " " . $row['address_line2']);
+    $province = $row['province'];
+    $country = $row['country'];
+    $city = $row['city'];
+    $postalCode = $row['postal_code'];
+    $mobile_no = $row['mobile_no'];
+    $mobile_business = $row['mobile_business'];
+    $email_secondary = $row['email_secondary'];
+
+    $accountsQuery = "SELECT  * FROM `account` WHERE username = '$username'";
+    $account_data = mysqli_query($conn, $accountsQuery);
+    //$accountRow = mysqli_fetch_assoc($account_data);
+
+
   ?>
     <!--Header-->
-    <nav class="navbar navbar-expand-sm navbar-custom navbar-dark">
-      <div class="container-fluid">
-        <header>
-          <img src="images/my_bank_logo.png" width="50" />
-        </header>
-        <a class="navbar-brand" href="#">MyBank</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="accounts_summary.html">Accounts</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="customer_information.html">Customer Info</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="intrac_e_transfer.html">Interac e-Transfer</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.html">Logout</a>
-            </li>
-          </ul>
-        </div>
-    </nav>
+    <?php include 'header.php'; ?>
 
     <!--Main Content-->
     <div class="container">
@@ -77,12 +66,12 @@
                 <td></td>
               </tr>
               <tr>
-                <td>Home: </td>
-                <td>(223)454-5623</td>
+                <td>Personal: </td>
+                <td><?php echo $mobile_no ?></td>
               </tr>
               <tr>
                 <td>Business: </td>
-                <td>(453)234-5476</td>
+                <td><?php echo $mobile_business ?></td>
               </tr>
 
               <tr class="total-balance-table-row">
@@ -91,11 +80,11 @@
               </tr>
               <tr>
                 <td>Primary Email Address: </td>
-                <td>prabh@conestogac.ca.on</td>
+                <td><?php echo $email ?></td>
               </tr>
               <tr>
                 <td>Secondary: </td>
-                <td>prabh12345@gmail.com</td>
+                <td><?php echo $email_secondary ?></td>
               </tr>
             </tbody>
           </table>
@@ -119,23 +108,20 @@
               </tr>
               <tr>
                 <td>City: </td>
-                <td>Waterloo</td>
+                <td><?php echo $city ?></td>
               </tr>
               <tr>
                 <td>Province: </td>
-                <td>Ontario</td>
+                <td><?php echo $province ?></td>
               </tr>
               <tr>
                 <td>Postal Code: </td>
-                <td>N2J 1Z9</td>
+                <td><?php echo $postalCode ?></td>
               </tr>
               <tr>
                 <td>Country: </td>
-                <td>Canada</td>
+                <td><?php echo $country ?></td>
               </tr>
-
-
-
             </tbody>
           </table>
           <table class="table">
@@ -145,43 +131,25 @@
                   My Accounts
                 </td>
               </tr>
-              <tr>
+              <?php
+              while ($accountRow = mysqli_fetch_assoc($account_data)) {
+                ?>
+                 <tr>
                 <td>
-                  Momentum PLUS Savings - ********73*3201
+                  <?php echo $accountRow['account_type']?> 
+                </td>
+                <td>
+                <?php echo $accountRow['account_no']?>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  Student Banking Advantage Plan - *****00*7781
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Non-Reg Savings - BNS - ********24*8604
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  SCENE VISA card - 4537*****8057013
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  ScotiaCard/Self-Service Bkg. Access - 6001111942705
-                </td>
-              </tr>
+                <?php
+              }
+              ?>
+             
+
             </tbody>
           </table>
         </div>
-
-        <!-- <div class="col">
-                    <p style="color: red; font-size: 20px; font-weight: bolder;">Additional details you may need:</p>
-                    <p>This page will only display accounts where you are the main owner. If an account is not listed, please call 1-800-4MYBANK.</p>
-
-                    <p>Please visit your branch if you would like to update your MyBank Mutual Funds account address.</p>
-
-                    <p>If you update your address and open a new account in the next 30 days, you may need to visit a branch to confirm your identity.</p>
-        </div> -->
       </div>
     </div>
     <br>
@@ -189,17 +157,13 @@
     <br>
 
     <!--Footer Content-->
-    <footer class="footer navbar-custom w-100 py-3 position-fixed bottom-0 start-50 translate-middle-x">
-      <div class="container-fluid">
-        <span class="text-light">All rights are reserved @MyBank | For your queries mail us at contact@mybank.com</span>
-      </div>
-    </footer>
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>
 <?php
   } else {
     header("Location: login.html");
-exit();
+    exit();
   }
 ?>
