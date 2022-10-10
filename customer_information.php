@@ -158,12 +158,23 @@
 
     <!--Footer Content-->
     <?php include 'footer.php'; ?>
+    <script>
+    var element1 = document.querySelector("[href='accounts_summary.php']");
+    element1.className = "nav-link";
+    
+    var element2 = document.querySelector("[href='customer_information.php']");
+    element2.className = "nav-link active";
+    
+    var element3 = document.querySelector("[href='intrac_e_transfer.php']");
+    element3.className = "nav-link";
+
+  </script>
 </body>
 
 </html>
 <?php
   } else {
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
   }
 ?>

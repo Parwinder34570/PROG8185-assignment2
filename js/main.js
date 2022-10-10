@@ -46,3 +46,9 @@ function formSubmit(){
 		alert('Not enough Balance');
 	}
 }
+
+function openSignup(){
+
+}
+
+

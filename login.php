@@ -49,7 +49,8 @@
                           <input type="password" class="form-control" id="password" placeholder="Enter password" name="pswd">
                         </div>
                         <button type="button" class="btn btn-primary" onclick="checkDetails()">Login</button>
-                      <!-- </form> -->
+                        <button type="button" class="btn btn-primary" onclick="openSignup()">Register Now</button>
+                        <!-- </form> -->
                       
                       <p class="error text-danger mb-3 mt-3" id="error"></p>
                     </div>
@@ -67,11 +68,7 @@
       <br>
       
       <!--Footer Content-->
-      <footer class="footer navbar-custom w-100 py-3 position-fixed bottom-0 start-50 translate-middle-x">
-        <div class="container-fluid">
-          <span class="text-light">All rights are reserved @MyBank | For your queries mail us at contact@mybank.com</span>
-        </div>
-      </footer>
+      <?php include 'footer.php'; ?>
 </body>
 <script>
     showMessage();
