@@ -1,0 +1,196 @@
+<!--
+    Parwinder Singh Ranota
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="css/main.css" rel="stylesheet" />
+  <title>Accounts Summary</title>
+
+</head>
+
+<body>
+  <?php
+  session_start();
+  if (isset($_SESSION['my_products'])) {
+    $product_ar_obj = $_SESSION['my_products'];
+  ?>
+    <!--Header-->
+    <nav class="navbar navbar-expand-sm navbar-custom navbar-dark">
+      <div class="container-fluid">
+        <header>
+          <img src="images/my_bank_logo.png" width="50" />
+        </header>
+        <a class="navbar-brand" href="#">MyBank</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="accounts_summary.html">Accounts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="customer_information.html">Customer Info</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="intrac_e_transfer.html">Interac e-Transfer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Logout</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+
+    <!--Main Content-->
+    <div class="container">
+      <br>
+      <br>
+      <div class="row">
+        <div class="col">
+
+          <table class="table">
+            <tbody>
+              <tr>
+                <td colspan="2">
+                  <img src="images/parwinder_profile_pic.jpg" style="text-align: center;" class="mx-auto d-block img-thumbnail" width="250" alt="Profile Picture">
+                </td>
+              </tr>
+              <tr class="total-balance-table-row">
+                <td>Contact</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Home: </td>
+                <td>(223)454-5623</td>
+              </tr>
+              <tr>
+                <td>Business: </td>
+                <td>(453)234-5476</td>
+              </tr>
+
+              <tr class="total-balance-table-row">
+                <td>Email</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Primary Email Address: </td>
+                <td>prabh@conestogac.ca.on</td>
+              </tr>
+              <tr>
+                <td>Secondary: </td>
+                <td>prabh12345@gmail.com</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+        <div class="col">
+          <table class="table">
+            <tbody>
+              <tr class="total-balance-table-row">
+                <td>Primary Address</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Name: </td>
+                <td>Prabhjot Kaur</td>
+              </tr>
+              <tr>
+                <td>Address Line1: </td>
+                <td>84 Weber Street South</td>
+              </tr>
+              <tr>
+                <td>City: </td>
+                <td>Waterloo</td>
+              </tr>
+              <tr>
+                <td>Province: </td>
+                <td>Ontario</td>
+              </tr>
+              <tr>
+                <td>Postal Code: </td>
+                <td>N2J 1Z9</td>
+              </tr>
+              <tr>
+                <td>Country: </td>
+                <td>Canada</td>
+              </tr>
+
+
+
+            </tbody>
+          </table>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="total-balance-table-row">
+                  My Accounts
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Momentum PLUS Savings - ********73*3201
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Student Banking Advantage Plan - *****00*7781
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Non-Reg Savings - BNS - ********24*8604
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  SCENE VISA card - 4537*****8057013
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  ScotiaCard/Self-Service Bkg. Access - 6001111942705
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- <div class="col">
+                    <p style="color: red; font-size: 20px; font-weight: bolder;">Additional details you may need:</p>
+                    <p>This page will only display accounts where you are the main owner. If an account is not listed, please call 1-800-4MYBANK.</p>
+
+                    <p>Please visit your branch if you would like to update your MyBank Mutual Funds account address.</p>
+
+                    <p>If you update your address and open a new account in the next 30 days, you may need to visit a branch to confirm your identity.</p>
+        </div> -->
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <!--Footer Content-->
+    <footer class="footer navbar-custom w-100 py-3 position-fixed bottom-0 start-50 translate-middle-x">
+      <div class="container-fluid">
+        <span class="text-light">All rights are reserved @MyBank | For your queries mail us at contact@mybank.com</span>
+      </div>
+    </footer>
+</body>
+
+</html>
+<?php
+  } else {
+    header("Location: login.html");
+exit();
+  }
+?>
