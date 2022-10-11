@@ -17,7 +17,7 @@
 
 <body>
 
- 
+
   <!--Header-->
   <!--Header-->
   <?php include 'header.php'; ?>
@@ -29,102 +29,74 @@
 
 
     <?php
-  require 'connection.php';
-  session_start();
-  $_SESSION['username'] = 'Parwinder123';
-  if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-    mysqli_set_charset($conn, "utf8");
-    $accountsQuery = "SELECT  * FROM `account` WHERE username = '$username'";
-    $account_data = mysqli_query($conn, $accountsQuery);
-  ?>
-    <table class="table table-bordered">
-      <tbody>
-        <tr>
-          <td class="total-balance-table-row">
-            My Accounts
-          </td>
-          <td class="total-balance-table-row">
-            Account Number
-          </td>
-          <td class="total-balance-table-row">
-            Category
-          </td>
-          <td class="total-balance-table-row">
-            Balance
-          </td>
-        </tr>
-        <?php
-        while ($accountRow = mysqli_fetch_assoc($account_data)) {
-        ?>
-          <tr>
-            <td>
-              <?php echo $accountRow['account_type'] ?>
-            </td>
-            <td>
-              <?php echo $accountRow['account_no'] ?>
-            </td>
-            <td>
-              <?php echo $accountRow['category'] ?>
-            </td>
-            <td>
-              <?php echo "CAD ".$accountRow['balance'] ?>
-            </td>
-          </tr>
-        <?php
-        }
-        ?>
+    require 'connection.php';
+    session_start();
+    $_SESSION['username'] = 'Parwinder123';
+    if (isset($_SESSION['username'])) {
+      $username = $_SESSION['username'];
+      mysqli_set_charset($conn, "utf8");
+      $accountsQuery = "SELECT  * FROM `account` WHERE username = '$username'";
+      $account_data = mysqli_query($conn, $accountsQuery);
+    ?>
+      
+    <?php
+    } else {
+      header("Location: login.php");
+      exit();
+    }
+    ?>
 
 
-      </tbody>
-    </table>
-  <?php
-  } else {
-    header("Location: login.php");
-    exit();
-  }
-  ?>
+
     <div id="accordion">
-      <div class="card card-properties">
-        <div class="card-header">
-          <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
-            Banking
-          </a>
 
-        </div>
-        <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
-          <div class="card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et velit a nibh vehicula ullamcorper. Nunc ut sodales est, pretium porta ante. Proin tristique augue porta, congue magna non, laoreet velit. Praesent maximus lacinia sapien, non placerat odio aliquam sit amet. Proin lorem est, consectetur id lectus laoreet, hendrerit gravida dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. In elementum arcu est, sed sodales sapien fermentum blandit. Proin sed leo arcu. Sed scelerisque efficitur dolor. Aenean ut lacus eu ligula consequat rutrum non in sapien. Morbi vel tellus porttitor, ultrices erat et, pharetra nisi. Donec posuere et risus et feugiat. Duis ut convallis tellus. Suspendisse maximus, nulla vel elementum interdum, eros ex pharetra lacus, vitae laoreet odio arcu vel nibh. Maecenas eu est ut ligula interdum luctus.</p>
+      <?php
+       $index = 0;
+      while ($accountRow = mysqli_fetch_assoc($account_data)) {
+      $account_id =  $accountRow['id'];
+      ?>
+        <div class="card card-properties">
+          <div class="card-header">
+            <a class="btn" data-bs-toggle="collapse" href="#collapse<?php echo $index; ?>">
+            <?php echo $accountRow['account_type'] ?> | <?php echo $accountRow['account_no'] ?> |  <?php echo $accountRow['category'] ?> |  <?php echo "CAD " . $accountRow['balance'] ?>
+            </a>
+          </div>
+          <div id="collapse<?php echo $index; ?>" class="collapse" data-bs-parent="#accordion">
+            <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr class="total-balance-table-row">
+                  <td>Date Time</td>
+                  <td>Payee</td>
+                  <td>Payee's Email</td>
+                  <td>Amount (CAD)</td>
+                </tr>
+              </thead>
+            <tbody>
+              <?php
+              $transactionQuery = "SELECT * FROM `transaction`, `payee` WHERE from_user = '$username' AND to_account = payee.id AND from_account_id = $account_id";
+              $transactionData = mysqli_query($conn, $transactionQuery);
+              while ($transactionRow = mysqli_fetch_assoc($transactionData)){
+                ?>
+                <tr>
+                  <td><?php echo $transactionRow['date_time'] ?></td>
+                  <td><?php echo $transactionRow['nick_name'] ?></td>
+                  <td><?php echo $transactionRow['email'] ?></td>
+                  <td>$<?php echo $transactionRow['transaction_amount'] ?> CAD</td>
+                </tr>
+                <?php
+              }
+              ?>
+            </tbody>
+            </table>
+            </div>
           </div>
         </div>
-      </div>
-      <br>
-      <div class="card card-properties">
-        <div class="card-header">
-          <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
-            Investments
-          </a>
-        </div>
-        <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
-          <div class="card-body">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et velit a nibh vehicula ullamcorper. Nunc ut sodales est, pretium porta ante. Proin tristique augue porta, congue magna non, laoreet velit. Praesent maximus lacinia sapien, non placerat odio aliquam sit amet. Proin lorem est, consectetur id lectus laoreet, hendrerit gravida dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. In elementum arcu est, sed sodales sapien fermentum blandit. Proin sed leo arcu. Sed scelerisque efficitur dolor. Aenean ut lacus eu ligula consequat rutrum non in sapien. Morbi vel tellus porttitor, ultrices erat et, pharetra nisi. Donec posuere et risus et feugiat. Duis ut convallis tellus. Suspendisse maximus, nulla vel elementum interdum, eros ex pharetra lacus, vitae laoreet odio arcu vel nibh. Maecenas eu est ut ligula interdum luctus.</p>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="card card-properties">
-        <div class="card-header">
-          <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseThree">
-            Borrowing
-          </a>
-        </div>
-        <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
-          <div class="card-body">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et velit a nibh vehicula ullamcorper. Nunc ut sodales est, pretium porta ante. Proin tristique augue porta, congue magna non, laoreet velit. Praesent maximus lacinia sapien, non placerat odio aliquam sit amet. Proin lorem est, consectetur id lectus laoreet, hendrerit gravida dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. In elementum arcu est, sed sodales sapien fermentum blandit. Proin sed leo arcu. Sed scelerisque efficitur dolor. Aenean ut lacus eu ligula consequat rutrum non in sapien. Morbi vel tellus porttitor, ultrices erat et, pharetra nisi. Donec posuere et risus et feugiat. Duis ut convallis tellus. Suspendisse maximus, nulla vel elementum interdum, eros ex pharetra lacus, vitae laoreet odio arcu vel nibh. Maecenas eu est ut ligula interdum luctus.</p>
-          </div>
-        </div>
-      </div>
-
+        <br>
+      <?php
+      $index++;
+      }
+      ?>
     </div>
   </div>
   <br>
@@ -137,13 +109,12 @@
   <script>
     var element1 = document.querySelector("[href='accounts_summary.php']");
     element1.className = "nav-link active";
-    
+
     var element2 = document.querySelector("[href='customer_information.php']");
     element2.className = "nav-link";
-    
+
     var element3 = document.querySelector("[href='intrac_e_transfer.php']");
     element3.className = "nav-link";
-
   </script>
 
 </body>
