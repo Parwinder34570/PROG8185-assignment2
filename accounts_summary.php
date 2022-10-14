@@ -74,7 +74,7 @@
               </thead>
             <tbody>
               <?php
-              $transactionQuery = "SELECT * FROM `transaction`, `payee` WHERE from_user = '$username' AND to_account = payee.id AND from_account_id = $account_id order by date_time desc";
+              $transactionQuery = "SELECT * FROM `transaction`, `payee` WHERE from_user = '$username' AND to_account = payee.id AND from_account_id = $account_id order by date_time desc limit 15";
               $transactionData = mysqli_query($conn, $transactionQuery);
               while ($transactionRow = mysqli_fetch_assoc($transactionData)){
                 ?>
