@@ -74,8 +74,6 @@
         else{
             
         }
-
-
         ?>
         <div class="row">
 
@@ -155,8 +153,6 @@
                             <input type="Submit" value="Register" class="submit" id="submit" name="RegisterButton" />
                             
                         </form>
-
-
                     </div>
                 </div>
             </div>
@@ -172,8 +168,8 @@
     <!--Footer Content-->
     <?php include 'footer.php'; ?>
     <script>
-    showMessage();
-</script>
+        showMessage();
+    </script>
 </body>
 </html>
 
