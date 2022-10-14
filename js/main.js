@@ -37,14 +37,30 @@ function checkDetails(){
     }
 
 }
-
 function formSubmit(){
+
+var e = document.getElementById("account");
+var value = e.value;
+var text = e.options[e.selectedIndex].text;
+console.log(value);
+
+
+
 	var amount = document.getElementById('amount').value;
+    //var alertBox = document.getElementById('alertDiv').innerHTML;
 	if (amount < 5000){
+        //alertBox = `Money Send!! You send CAD ${amount}`
+
 		alert(`Money Send!! You send CAD ${amount}`);
 	} else{
+        //alertBox = 'Not enough Balance';
 		alert('Not enough Balance');
 	}
+}
+
+function showModal(){
+    var payeeModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+    payeeModal.show();
 }
 
 function openSignup(){
