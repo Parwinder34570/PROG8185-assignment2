@@ -19,7 +19,7 @@
                     <a class="nav-link" href="intrac_e_transfer.php">Interac e-Transfer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.php">Logout</a>
+                    <a class="nav-link" href="session.php">Logout</a>
                 </li>
             </ul>
         </div>

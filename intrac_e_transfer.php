@@ -17,7 +17,7 @@
   <?php
   require 'connection.php';
   session_start();
-  $_SESSION['username'] = 'Parwinder123';
+ // $_SESSION['username'] = 'Parwinder123';
   $username = $_SESSION['username'];
 
   if (isset($_SESSION['username'])) {
@@ -195,15 +195,15 @@ VALUES ('$pName', '$pEmail', '$pPhoneNumber', '$username')";
               <form action="#" method="post">
                 <div class="form-group">
                   <label for="payee-nickname" class="col-form-label">Nickname</label>
-                  <input type="text" class="form-control" id="payee-nickname" name="nick_name">
+                  <input type="text" class="form-control" id="payee-nickname" name="nick_name" required>
                 </div>
                 <div class="form-group">
                   <label for="payee-email" class="col-form-label">Email</label>
-                  <input type="text" class="form-control" id="payee-email" name="p_email">
+                  <input type="text" class="form-control" id="payee-email" name="p_email" required>
                 </div>
                 <div class="form-group">
                   <label for="payee-phone" class="col-form-label">Phone No.</label>
-                  <input type="text" class="form-control" id="payee-phone" name="p_phone_number">
+                  <input type="text" class="form-control" id="payee-phone" name="p_phone_number" required>
                 </div>
                 <input type="Submit" value="Save" class="submit" name="SavePayee" />
               </form>
