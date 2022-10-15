@@ -36,68 +36,70 @@
   <div class="container">
     <br>
     <?php
-   
-    session_start();
-    
-    if (isset($_POST['LoginButton'])) {
-      $username = $_POST['username'];
-      $password = $_POST['pswd'];
+      session_start();
 
-      $sql = "SELECT username FROM user WHERE username = '$username' and password = '$password'";
-      $result = mysqli_query($conn,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $active = $row['active'];
-      
-      $count = mysqli_num_rows($result);
-      
-      // If result matched $myusername and $mypassword, table row must be 1 row
-		
-      if($count == 1) {
-         
-         $_SESSION['username'] = $username;
-         
-         header("location: accounts_summary.php");
-      }else {
+      if(isset($_GET['message'])){
         ?>
-        <div class="alert alert-danger alert-dismissible">
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          <strong>Error!</strong> Wrong Username or Password. Try again !!
-        </div>
-      <?php
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Success!</strong> Cheers, account created, you can now login !!
+          </div>
+        <?php
       }
-   }
-?>
-    <div class="row">
 
+      if (isset($_POST['LoginButton'])) {
+        $username = $_POST['username'];
+        $password = $_POST['pswd'];
+
+        $sql = "SELECT username FROM user WHERE username = '$username' and password = '$password'";
+        $result = mysqli_query($conn,$sql);
+        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        $active = $row['active'];
+        
+        $count = mysqli_num_rows($result);
+        
+        
+      
+        if($count == 1) {
+          
+          $_SESSION['username'] = $username;
+          
+          header("location: accounts_summary.php");
+        }else {
+          ?>
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Error!</strong> Wrong Username or Password. Try again !!
+          </div>
+        <?php
+        }
+      }
+    ?>
+    
+    <div class="row">
       <div class="col">
         <p class="h3 aligns-items-center" id="welcomeMessage"></p>
         <br>
-
         <div class="login_div">
           <div class="container">
             <form action="#" method="post">
               <div class="mb-3 mt-3">
-
                 <label for="username" class="form-label">Username:</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+                <input type="text" class="form-control" id="username" required placeholder="Enter username" name="username">
               </div>
               <div class="mb-3">
                 <label for="pwd" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" name="pswd">
+                <input type="password" class="form-control" id="password" required placeholder="Enter password" name="pswd">
               </div>
               <input type="Submit" value="Login" class="submit" id="submit" name="LoginButton" />
               <button type="button" class="submit" onclick="loadSignupPage()">
                 Register Now
               </button>
             </form>
-
-            
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
 
   </div>
@@ -113,7 +115,7 @@
   showMessage();
 
   function loadSignupPage(){
-    window.location.href = "register.php";
+    window.location.href = "signup.php";
   }
 </script>
 

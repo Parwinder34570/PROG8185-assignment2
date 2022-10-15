@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,6 @@
     <script src="js/main.js"></script>
     <link href="css/main.css" rel="stylesheet" />
     <title>Register</title>
-
 </head>
 
 <body style="background-color: #F9F5EB">
@@ -18,7 +17,6 @@
     <?php
     require 'connection.php';
     ?>
-
     <!--Header-->
     <nav class="navbar navbar-expand-sm navbar-custom navbar-dark">
         <div class="container-fluid">
@@ -31,55 +29,64 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
     </nav>
-
-    <!--Main Content-->
     <div class="container">
-        <br>
-        <?php
-
-        session_start();
-
-        if (isset($_POST['RegisterButton'])) {
-            $username = $_POST['username'];
-            $email = $_POST['email'];
-            $fullname = $_POST['fullname'];
-            $password = $_POST['password'];
-            $address_line1 = $_POST['address_line1'];
-            $address_line2 = $_POST['address_line2'];
-            $city = $_POST['city'];
-            $province = $_POST['province'];
-            $country = $_POST['country'];
-            $mobile = $_POST['mobile'];
-            $mobile_business = $_POST['mobile_business'];
-            $secondary_email = $_POST['secondary_email'];
-            $postal_code = $_POST['postal_code'];
-
-            $sql = "SELECT username FROM user WHERE username = '$username'";
-      $result = mysqli_query($conn,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $active = $row['active'];
-      
-      $count = mysqli_num_rows($result);
-      
-      // If result matched $myusername and $mypassword, table row must be 1 row
-		
-      if($count == 1) {
-        ?>
-        <div class="alert alert-danger alert-dismissible">
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          <strong>Error!</strong> Username already exist. Try with different username.
-        </div>
-      <?php
-        }    
-        else{
-            
-        }
-        ?>
         <div class="row">
-
             <div class="col">
+                <br>
                 <p class="h3 aligns-items-center" id="welcomeMessage"></p>
                 <br>
+
+                <?php
+                session_start();
+                if (isset($_POST['RegisterButton'])) {
+                    $username = $_POST['username'];
+                    $email = $_POST['email'];
+                    $fullname = $_POST['fullname'];
+                    $password = $_POST['pwd'];
+                    $address_line1 = $_POST['address_line1'];
+                    $address_line2 = $_POST['address_line2'];
+                    $city = $_POST['city'];
+                    $province = $_POST['province'];
+                    $country = $_POST['country'];
+                    $mobile_no = $_POST['mobile_no'];
+                    $mobile_business = $_POST['mobile_business'];
+                    $secondary_email = $_POST['secondary_email'];
+                    $postal_code = $_POST['postal_code'];
+
+                    $sql = "SELECT username FROM user WHERE username = '$username'";
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                    $active = $row['active'];
+
+                    $count = mysqli_num_rows($result);
+
+                    if ($count == 1) {
+                ?>
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong>Error!</strong> Username already exist. Try with different username.
+                        </div>
+                        <?php
+                    } else {
+                        $sql1 = "INSERT INTO `user`
+                        VALUES ('$username', '$email', '$fullname', '$password', '$address_line1', '$address_line2', '$city', '$province', '$country', '$mobile_no', '$mobile_business','$secondary_email', '$postal_code')";
+                        echo $sql;
+                        echo $sql1;
+                        if ($conn->query($sql1) === TRUE) {
+                            echo "case true";
+                            header("Location: login.php?message=Signup Successful, you can login now");
+                        } else {
+                        ?>
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <strong>Error!</strong> There is some technical issue occurs. Try again !!
+                            </div>
+                <?php
+                        }
+                    }
+                }
+                ?>
+
 
                 <div class="login_div">
                     <div class="container">
@@ -100,8 +107,8 @@
                             </div>
 
                             <div class="mb-3 mt-3">
-                                <label for="password" class="form-label">Password:</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
+                                <label for="pwd" class="form-label">Password:</label>
+                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
                             </div>
 
                             <div class="mb-3 mt-3">
@@ -145,32 +152,25 @@
                             </div>
 
                             <div class="mb-3 mt-3">
-                                <label for="postal_code" class="form-label">Mobile Business:</label>
+                                <label for="postal_code" class="form-label">Postal Code:</label>
                                 <input type="text" class="form-control" id="postal_code" placeholder="Enter Postal Code" name="postal_code" required>
                             </div>
-
-                            
                             <input type="Submit" value="Register" class="submit" id="submit" name="RegisterButton" />
-                            
+
                         </form>
                     </div>
                 </div>
+                <br>
+                <br>
+                <br>
+                <br>
             </div>
         </div>
-
-
     </div>
-
-    <br>
-    <br>
-    <br>
-
-    <!--Footer Content-->
     <?php include 'footer.php'; ?>
     <script>
         showMessage();
     </script>
 </body>
+
 </html>
-
-

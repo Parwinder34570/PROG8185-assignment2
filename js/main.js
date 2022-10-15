@@ -60,9 +60,6 @@ function showModal() {
     payeeModal.show();
 }
 
-function loadSignupPage() {
-    console.log("in method");
-    window.location.href = "register.php";
-}
+
 
 

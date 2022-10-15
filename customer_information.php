@@ -19,7 +19,7 @@
   <?php
   require 'connection.php';
   session_start();
-  $_SESSION['username'] = 'Parwinder123';
+  //$_SESSION['username'] = 'Parwinder123';
   if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
     mysqli_set_charset($conn, "utf8");
